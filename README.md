@@ -40,6 +40,6 @@ _ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
 ```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler2.png)
 ```python
-# transform test dataset
+# transform test dataset with the fitted scaler
 X_test_new = scaler.transform(X_test[['CRIM', 'DIS']])
 ```
