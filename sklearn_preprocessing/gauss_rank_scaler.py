@@ -140,6 +140,6 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
 
     @staticmethod
     def drop_duplicates(x):
-        k = np.zeros_like(x, dtype=bool)
-        k[np.unique(x, return_index=True)[1]] = True
-        return x[k]
+        is_unique = np.zeros_like(x, dtype=bool)
+        is_unique[np.unique(x, return_index=True)[1]] = True
+        return x[is_unique]
