@@ -75,11 +75,11 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
         self.n_jobs = n_jobs
 
     def fit(self, X, y=None):
-        """Compute the mean and std to be used for later scaling.
+        """Fit interpolation to link rank with original data for future scaling
         Parameters
         ----------
         X : array-like, shape (n_samples, n_features)
-            The data used to compute the mean and standard deviation
+            The data used to fit interpolation
             used for later scaling along the features axis.
         y
             Ignored
@@ -98,7 +98,7 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
         return interp1d(x, scaled_rank, **self.interp_params)
 
     def transform(self, X, copy=None):
-        """Perform standardization by centering and scaling
+        """Scale the data with the GaussRank algorithm
         Parameters
         ----------
         X : array-like, shape (n_samples, n_features)
