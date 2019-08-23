@@ -31,7 +31,7 @@ _ = X_train[['CRIM', 'DIS']].hist()
 
 # scale the variables with Gauss Rank Scaler
 scaler = GuassRankScaler()
-X_train_new = scaler.fit_transform(X_train[['CRIM', 'RM']])
+X_train_new = scaler.fit_transform(X_train[['CRIM', 'DIS']])
 
 # plot histograms of the scaled variables
 _ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
