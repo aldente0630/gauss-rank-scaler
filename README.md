@@ -7,6 +7,6 @@ Input normalization for neural networks is very important. GaussRank is an effec
 ## Important Links
   
 * [Interview of the Kaggle competition winner (Michael Jahrer)](https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/discussion/44629#250927)  
-* [aa](http://fastml.com/preparing-continuous-features-for-neural-networks-with-rankgauss)
+* [Blog post that introduces GuassRank's concept and simple implementation (Zygmunt Zając)](http://fastml.com/preparing-continuous-features-for-neural-networks-with-rankgauss)
   
 ## Usage
