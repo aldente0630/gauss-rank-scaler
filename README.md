@@ -23,8 +23,6 @@ from sklearn.datasets import load_boston
 
 # prepare some data
 bunch = load_boston()
-y_train = bunch.target[:250]
-y_test = bunch.target[250:]
 X_train = pd.DataFrame(bunch.data[:250], columns=bunch.feature_names)
 X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 
@@ -35,6 +33,9 @@ _ = X_train[['CRIM', 'DIS']].hist()
 gauss_rank_scaler = GuassRankScaler()
 X_train_new = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
 
+# plot histograms of the scaled variables
+_ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
+
 # transform the dataset
-numeric_dataset = enc.transform(X)
+numeric_dataset = gauss_rank_scaler.transform(X_test)
 ```
