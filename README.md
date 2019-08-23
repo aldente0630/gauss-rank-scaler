@@ -23,10 +23,10 @@ from sklearn.datasets import load_boston
 
 # data preparation
 bunch = load_boston()
-y_train = bunch.target[0:250]
-y_test = bunch.target[250:506]
-X_train = pd.DataFrame(bunch.data[0:250], columns=bunch.feature_names)
-X_test = pd.DataFrame(bunch.data[250:506], columns=bunch.feature_names)
+y_train = bunch.target[:250]
+y_test = bunch.target[250:]
+X_train = pd.DataFrame(bunch.data[:250], columns=bunch.feature_names)
+X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 
 # use Gauss to encode two categorical features
 enc = BinaryEncoder(cols=['CHAS', 'RAD']).fit(X)
