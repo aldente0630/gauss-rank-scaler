@@ -36,6 +36,6 @@ X_train_new = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
 # plot histograms of the scaled variables
 _ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
 
-# transform the dataset
-numeric_dataset = gauss_rank_scaler.transform(X_test)
+# transform test dataset
+X_test_new = gauss_rank_scaler.transform(X_test[['CRIM', 'DIS']])
 ```
