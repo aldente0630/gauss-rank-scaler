@@ -6,66 +6,37 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils.validation import FLOAT_DTYPES, check_array, check_is_fitted
 
 
-class GuassRankScaler(BaseEstimator, TransformerMixin):
-    """Standardize features by removing the mean and scaling to unit variance
-        The standard score of a sample `x` is calculated as:
-            z = (x - u) / s
-        where `u` is the mean of the training samples or zero if `with_mean=False`,
-        and `s` is the standard deviation of the training samples or one if
-        `with_std=False`.
-        Centering and scaling happen independently on each feature by computing
-        the relevant statistics on the samples in the training set. Mean and
-        standard deviation are then stored to be used on later data using the
-        `transform` method.
-        Standardization of a dataset is a common requirement for many
-        machine learning estimators: they might behave badly if the
-        individual features do not more or less look like standard normally
-        distributed data (e.g. Gaussian with 0 mean and unit variance).
-        For instance many elements used in the objective function of
-        a learning algorithm (such as the RBF kernel of Support Vector
-        Machines or the L1 and L2 regularizers of linear models) assume that
-        all features are centered around 0 and have variance in the same
-        order. If a feature has a variance that is orders of magnitude larger
-        that others, it might dominate the objective function and make the
-        estimator unable to learn from other features correctly as expected.
-        This scaler can also be applied to sparse CSR or CSC matrices by passing
-        `with_mean=False` to avoid breaking the sparsity structure of the data.
-        Read more in the :ref:`User Guide <preprocessing_scaler>`.
-        Parameters
+class GaussRankScaler(BaseEstimator, TransformerMixin):
+    """Transform features by scaling each feature to a normal distribution.
+
+    Parameters
         ----------
+        epsilon : float, optional, default 1e-4
+            A small amount added to the lower bound or subtracted
+            from the upper bound. This value prevents infinite number
+            from occurring when applying the inverse error function.
         copy : boolean, optional, default True
             If False, try to avoid a copy and do inplace scaling instead.
             This is not guaranteed to always work inplace; e.g. if the data is
-            not a NumPy array or scipy.sparse CSR matrix, a copy may still be
-            returned.
-        with_mean : boolean, True by default
-            If True, center the data before scaling.
-            This does not work (and will raise an exception) when attempted on
-            sparse matrices, because centering them entails building a dense
-            matrix which in common use cases is likely to be too large to fit in
-            memory.
-        with_std : boolean, True by default
-            If True, scale the data to unit variance (or equivalently,
-            unit standard deviation).
+            not a NumPy array, a copy may still be returned.
+        n_jobs : int or None, optional, default None
+            Number of jobs to run in parallel.
+            ``None`` means 1 and ``-1`` means using all processors.
+        interp_kind : str or int, optional, default 'linear'
+           Specifies the kind of interpolation as a string
+            ('linear', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic',
+            'previous', 'next', where 'zero', 'slinear', 'quadratic' and 'cubic'
+            refer to a spline interpolation of zeroth, first, second or third
+            order; 'previous' and 'next' simply return the previous or next value
+            of the point) or as an integer specifying the order of the spline
+            interpolator to use.
+        interp_copy : bool, optional, default False
+            If True, the interpolation function makes internal copies of x and y.
+            If False, references to `x` and `y` are used.
         Attributes
         ----------
-        scale_ : ndarray or None, shape (n_features,)
-            Per feature relative scaling of the data. This is calculated using
-            `np.sqrt(var_)`. Equal to ``None`` when ``with_std=False``.
-            .. versionadded:: 0.17
-               *scale_*
-        mean_ : ndarray or None, shape (n_features,)
-            The mean value for each feature in the training set.
-            Equal to ``None`` when ``with_mean=False``.
-        var_ : ndarray or None, shape (n_features,)
-            The variance for each feature in the training set. Used to compute
-            `scale_`. Equal to ``None`` when ``with_std=False``.
-        n_samples_seen_ : int or array, shape (n_features,)
-            The number of samples processed by the estimator for each feature.
-            If there are not missing samples, the ``n_samples_seen`` will be an
-            integer, otherwise it will be an array.
-            Will be reset on new calls to fit, but increments across
-            ``partial_fit`` calls.
+        interp_func_ : list
+            The interpolation function for each feature in the training set.
         """
 
     def __init__(self, epsilon=1e-4, copy=True, n_jobs=None, interp_kind='linear', interp_copy=False):
@@ -75,12 +46,11 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
         self.n_jobs = n_jobs
 
     def fit(self, X, y=None):
-        """Fit interpolation to link rank with original data for future scaling
+        """Fit interpolation function to link rank with original data for future scaling
         Parameters
         ----------
         X : array-like, shape (n_samples, n_features)
-            The data used to fit interpolation
-            used for later scaling along the features axis.
+            The data used to fit interpolation function for later scaling along the features axis.
         y
             Ignored
         """
