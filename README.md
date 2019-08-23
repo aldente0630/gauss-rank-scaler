@@ -31,7 +31,7 @@ _ = X_train[['CRIM', 'DIS']].hist()
 ```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler1.png)
 ```python
-# scale the variables with Gauss Rank Scaler
+# scale the numeric variables with Gauss Rank Scaler
 scaler = GuassRankScaler()
 X_train_new = scaler.fit_transform(X_train[['CRIM', 'DIS']])
 
