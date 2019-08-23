@@ -1,4 +1,4 @@
-# Guass Rank Scaler
+# Gaㅕss Rank Scaler
   
 A scikit-learn style transformer that scales numeric variables to normal distributions. 
 
