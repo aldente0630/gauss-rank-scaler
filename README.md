@@ -21,15 +21,19 @@ import pandas as pd
 from sklearn.datasets import load_boston
 %matplotlib inline
 
-# data preparation
+# prepare some data
 bunch = load_boston()
 y_train = bunch.target[:250]
 y_test = bunch.target[250:]
 X_train = pd.DataFrame(bunch.data[:250], columns=bunch.feature_names)
 X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 
-# use Gauss to encode two categorical features
-enc = BinaryEncoder(cols=['CHAS', 'RAD']).fit(X)
+# plot histograms of two numeric variables
+_ = X_train[['CRIM', 'DIS']].hist()
+
+# scale the variables with Gauss Rank Scaler
+gauss_rank_scaler = GuassRankScaler()
+X_transformed = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
 
 # transform the dataset
 numeric_dataset = enc.transform(X)
