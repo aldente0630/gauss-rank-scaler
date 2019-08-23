@@ -2,7 +2,7 @@
   
 A scikit-learn style transformer that scales numeric variables to normal distributions. 
 
-Input normalization for neural networks is very important. GaussRank is an effective algorithm for converting numeric variable distributions to normals. It is based on rank transformation. The first step is to assign a spacing between -1 and 1 to the sorted features, then apply the inverse of error function `erfinv` to make it look like a Gaussian. This generally works much better than Standard or MinMax Scaler.
+Input normalization for neural networks is very important. GaussRank is an effective algorithm for converting numeric variable distributions to normals. It is based on rank transformation. The first step is to assign a spacing between -1 and 1 to the sorted features, then apply the inverse of error function `erfinv` to make it look like a Gaussian. This generally works much better than Standard or Min Max Scaler.
   
 ## Important Links
   
@@ -33,7 +33,7 @@ _ = X_train[['CRIM', 'DIS']].hist()
 
 # scale the variables with Gauss Rank Scaler
 gauss_rank_scaler = GuassRankScaler()
-X_transformed = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
+X_train_new = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
 
 # transform the dataset
 numeric_dataset = enc.transform(X)
