@@ -86,14 +86,16 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
         """
         X = check_array(X, copy=self.copy, estimator=self, dtype=FLOAT_DTYPES, force_all_finite=True)
 
-        ranks = np.argsort(np.argsort(X, axis=0), axis=0)
-        bound = 1.0 - self.epsilon
-        factors = np.max(ranks) / 2.0 * bound
-        scaled_ranks = np.clip(ranks / factors - bound, -bound, bound)
-
-        self.interp_func_ = Parallel(n_jobs=self.n_jobs)(
-            delayed(interp1d)(x, r, **self.interp_params) for x, r in zip(X.T, scaled_ranks.T))
+        self.interp_func_ = Parallel(n_jobs=self.n_jobs)(delayed(self._fit)(x) for x in X.T)
         return self
+
+    def _fit(self, x):
+        x = self.drop_duplicates(x)
+        rank = np.argsort(np.argsort(x))
+        bound = 1.0 - self.epsilon
+        factor = np.max(rank) / 2.0 * bound
+        scaled_rank = np.clip(rank / factor - bound, -bound, bound)
+        return interp1d(x, scaled_rank, **self.interp_params)
 
     def transform(self, X, copy=None):
         """Perform standardization by centering and scaling
@@ -135,3 +137,9 @@ class GuassRankScaler(BaseEstimator, TransformerMixin):
     def _inverse_transform(self, i, x):
         inv_interp_func = interp1d(self.interp_func_[i].y, self.interp_func_[i].x, **self.interp_params)
         return inv_interp_func(erf(x))
+
+    @staticmethod
+    def drop_duplicates(x):
+        k = np.zeros_like(x, dtype=bool)
+        k[np.unique(x, return_index=True)[1]] = True
+        return x[k]
