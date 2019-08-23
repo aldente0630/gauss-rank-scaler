@@ -28,16 +28,19 @@ X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 
 # plot histograms of two numeric variables
 _ = X_train[['CRIM', 'DIS']].hist()
+```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler1.png)  
 
+```python
 # scale the variables with Gauss Rank Scaler
 scaler = GuassRankScaler()
 X_train_new = scaler.fit_transform(X_train[['CRIM', 'DIS']])
 
 # plot histograms of the scaled variables
 _ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
+```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler2.png)  
-
+```python
 # transform test dataset
 X_test_new = scaler.transform(X_test[['CRIM', 'DIS']])
 ```
