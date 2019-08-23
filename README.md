@@ -10,3 +10,7 @@ Input normalization for neural networks is very important. GaussRank is an effec
 * [Blog post introducing GuassRank's concept and simple implementation (Zygmunt Zając)](http://fastml.com/preparing-continuous-features-for-neural-networks-with-rankgauss)
   
 ## Usage
+
+All of the encoders are fully compatible sklearn transformers, so they can be used in pipelines or in your existing scripts. Supported input formats include numpy arrays and pandas dataframes. If the cols parameter isn't passed, all columns with object or pandas categorical data type will be encoded. Please see the docs for transformer-specific configuration options.
+
+## Example
