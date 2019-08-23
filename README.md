@@ -16,16 +16,19 @@ Gauss Rank Scaler is a fully compatible sklearn transformer that can be used in 
 ## Example
 
 ```python
-from category_encoders import *
+from sklearn_preprocessing.gauss_rank_scaler import *
 import pandas as pd
 from sklearn.datasets import load_boston
+%matplotlib inline
 
-# prepare some data
+# data preparation
 bunch = load_boston()
-y = bunch.target
-X = pd.DataFrame(bunch.data, columns=bunch.feature_names)
+y_train = bunch.target[0:250]
+y_test = bunch.target[250:506]
+X_train = pd.DataFrame(bunch.data[0:250], columns=bunch.feature_names)
+X_test = pd.DataFrame(bunch.data[250:506], columns=bunch.feature_names)
 
-# use binary encoding to encode two categorical features
+# use Gauss to encode two categorical features
 enc = BinaryEncoder(cols=['CHAS', 'RAD']).fit(X)
 
 # transform the dataset
