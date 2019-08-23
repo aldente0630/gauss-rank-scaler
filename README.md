@@ -30,12 +30,12 @@ X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 _ = X_train[['CRIM', 'DIS']].hist()
 
 # scale the variables with Gauss Rank Scaler
-gauss_rank_scaler = GuassRankScaler()
-X_train_new = gauss_rank_scaler.fit_transform(X_train[['CRIM', 'RM']])
+scaler = GuassRankScaler()
+X_train_new = scaler.fit_transform(X_train[['CRIM', 'RM']])
 
 # plot histograms of the scaled variables
 _ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
 
 # transform test dataset
-X_test_new = gauss_rank_scaler.transform(X_test[['CRIM', 'DIS']])
+X_test_new = scaler.transform(X_test[['CRIM', 'DIS']])
 ```
