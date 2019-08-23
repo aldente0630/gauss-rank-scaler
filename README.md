@@ -11,6 +11,6 @@ Input normalization for neural networks is very important. GaussRank is an effec
   
 ## Usage
 
-Gauss Rank Scaler is a fully compatible sklearn transformer that can be used in pipelines or existing scripts. Supported input formats include numpy arrays and pandas dataframes. All columns passed to the transformer are scaled.
+Gauss Rank Scaler is a fully compatible sklearn transformer that can be used in pipelines or existing scripts. Supported input formats include numpy arrays and pandas dataframes. All columns passed to the transformer are properly scaled.
 
 ## Example
