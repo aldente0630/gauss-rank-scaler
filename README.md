@@ -14,3 +14,20 @@ Input normalization for neural networks is very important. GaussRank is an effec
 Gauss Rank Scaler is a fully compatible sklearn transformer that can be used in pipelines or existing scripts. Supported input formats include numpy arrays and pandas dataframes. All columns passed to the transformer are properly scaled.
 
 ## Example
+
+```python
+from category_encoders import *
+import pandas as pd
+from sklearn.datasets import load_boston
+
+# prepare some data
+bunch = load_boston()
+y = bunch.target
+X = pd.DataFrame(bunch.data, columns=bunch.feature_names)
+
+# use binary encoding to encode two categorical features
+enc = BinaryEncoder(cols=['CHAS', 'RAD']).fit(X)
+
+# transform the dataset
+numeric_dataset = enc.transform(X)
+```
