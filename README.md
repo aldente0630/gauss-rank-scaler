@@ -7,7 +7,7 @@ Input normalization for neural networks is very important. GaussRank is an effec
 ## Important Links
   
 * [Interview of the Kaggle competition winner (Michael Jahrer)](https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/discussion/44629#250927)  
-* [Blog post introducing GuassRank's concept and simple implementation (Zygmunt Zając)](http://fastml.com/preparing-continuous-features-for-neural-networks-with-rankgauss)
+* [Blog post introducing GaussRank's concept and simple implementation (Zygmunt Zając)](http://fastml.com/preparing-continuous-features-for-neural-networks-with-rankgauss)
   
 ## Usage
 
@@ -32,7 +32,7 @@ _ = X_train[['CRIM', 'DIS']].hist()
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler1.png)
 ```python
 # scale the numeric variables with Gauss Rank Scaler
-scaler = GuassRankScaler()
+scaler = GaussRankScaler()
 X_train_new = scaler.fit_transform(X_train[['CRIM', 'DIS']])
 
 # plot histograms of the scaled variables
