@@ -16,7 +16,7 @@ Gauss Rank Scaler is a fully compatible sklearn transformer that can be used in 
 ## Example
 
 ```python
-from gauss_rank_scaler import *
+from gauss_rank_scaler.gauss_rank_scaler import GaussRankScaler
 import pandas as pd
 from sklearn.datasets import load_boston
 %matplotlib inline
