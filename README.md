@@ -4,7 +4,7 @@ A scikit-learn style transformer that scales numeric variables to normal distrib
 
 Input normalization for neural networks is very important. Gauss Rank is an effective algorithm for converting numeric variable distributions to normals. It is based on rank transformation. The first step is to assign a spacing between -1 and 1 to the sorted features, then apply the inverse of error function `erfinv` to make it look like a Gaussian. 
   
-![](https://aldente0630.github.io/assets/gauss_rank_scaler3.png)
+![](https://aldente0630.github.io/assets/gauss_rank_scaler4.png)
   
 This generally works much better than Standard or Min Max Scaler.
   
