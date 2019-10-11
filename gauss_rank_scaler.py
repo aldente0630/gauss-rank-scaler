@@ -68,7 +68,7 @@ class GaussRankScaler(BaseEstimator, TransformerMixin):
         return interp1d(x, scaled_rank, **self.interp_params)
 
     def transform(self, X, copy=None):
-        """Scale the data with the GaussRank algorithm
+        """Scale the data with the Gauss Rank algorithm
         Parameters
         ----------
         X : array-like, shape (n_samples, n_features)
