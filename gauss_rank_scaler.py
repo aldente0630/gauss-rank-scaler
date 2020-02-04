@@ -42,7 +42,9 @@ class GaussRankScaler(BaseEstimator, TransformerMixin):
     def __init__(self, epsilon=1e-4, copy=True, n_jobs=None, interp_kind='linear', interp_copy=False):
         self.epsilon = epsilon
         self.copy = copy
-        self.interp_params = {'kind': interp_kind, 'copy': interp_copy, 'fill_value': 'extrapolate'}
+        self.interp_kind = interp_kind
+        self.interp_copy = interp_copy
+        self.fill_value = 'extrapolate'
         self.n_jobs = n_jobs
 
     def fit(self, X, y=None):
@@ -65,7 +67,8 @@ class GaussRankScaler(BaseEstimator, TransformerMixin):
         bound = 1.0 - self.epsilon
         factor = np.max(rank) / 2.0 * bound
         scaled_rank = np.clip(rank / factor - bound, -bound, bound)
-        return interp1d(x, scaled_rank, **self.interp_params)
+        return interp1d(
+            x, scaled_rank, kind=self.interp_kind, copy=self.interp_copy, fill_value=self.fill_value)
 
     def transform(self, X, copy=None):
         """Scale the data with the Gauss Rank algorithm
@@ -105,7 +108,8 @@ class GaussRankScaler(BaseEstimator, TransformerMixin):
         return X
 
     def _inverse_transform(self, i, x):
-        inv_interp_func = interp1d(self.interp_func_[i].y, self.interp_func_[i].x, **self.interp_params)
+        inv_interp_func = interp1d(self.interp_func_[i].y, self.interp_func_[i].x, kind=self.interp_kind,
+                                   copy=self.interp_copy, fill_value=self.fill_value)
         return inv_interp_func(erf(x))
 
     @staticmethod
