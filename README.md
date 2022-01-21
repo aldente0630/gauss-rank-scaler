@@ -27,23 +27,23 @@ from sklearn.datasets import load_boston
 
 # prepare some data
 bunch = load_boston()
-X_train = pd.DataFrame(bunch.data[:250], columns=bunch.feature_names)
-X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
+df_X_train = pd.DataFrame(bunch.data[:250], columns=bunch.feature_names)
+df_X_test = pd.DataFrame(bunch.data[250:], columns=bunch.feature_names)
 
 # plot histograms of two numeric variables
-_ = X_train[['CRIM', 'DIS']].hist()
+_ = df_X_train[['CRIM', 'DIS']].hist()
 ```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler1.png)
 ```python
 # scale the numeric variables with Gauss Rank Scaler
 scaler = GaussRankScaler()
-X_train_new = scaler.fit_transform(X_train[['CRIM', 'DIS']])
+df_X_new_train = scaler.fit_transform(df_X_train[['CRIM', 'DIS']])
 
 # plot histograms of the scaled variables
-_ = pd.DataFrame(X_train_new, columns=['CRIM', 'DIS']).hist()
+_ = pd.DataFrame(df_X_new_train, columns=['CRIM', 'DIS']).hist()
 ```
 ![](https://aldente0630.github.io/assets/gauss_rank_scaler2.png)
 ```python
 # scale test dataset with the fitted scaler
-X_test_new = scaler.transform(X_test[['CRIM', 'DIS']])
+df_X_new_test = scaler.transform(df_X_test[['CRIM', 'DIS']])
 ```
