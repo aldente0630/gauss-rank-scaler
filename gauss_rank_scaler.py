@@ -150,3 +150,13 @@ class GaussRankScaler(BaseEstimator, TransformerMixin):
         is_unique = np.zeros_like(x, dtype=bool)
         is_unique[np.unique(x, return_index=True)[1]] = True
         return x[is_unique]
+
+    def get_feature_names_out(self, input_features=None):
+        """Get feature names for the transformed data.
+        Parameters:
+        ----------
+        input_features : Not used.
+        """
+        if input_features is None:
+            input_features = [f"f{idx}" for idx in range(self.n_features_in_)]
+        return input_features
